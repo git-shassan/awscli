@@ -5,4 +5,6 @@ RUN yum install -y unzip && yum install -y wget
 RUN wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" 
 RUN unzip awscli-exe-linux-x86_64.zip
 RUN ./aws/install 
-RUN mkdir ./.aws/
+RUN mkdir /root/.aws/
+COPY config /root/.aws/
+COPY credentials /root/.aws/
