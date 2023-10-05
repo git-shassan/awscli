@@ -4,11 +4,25 @@ A simple pod to run AWS CLI . Note that AWSCLI docker container is offered on do
 
 A prebuilt docker image is available at public repo: quay.io/sfhassan/myawscli
 
+## Running as a k8s pod:
+
 The run as a pod: 
 ```
-oc run awscli --image=quay.io/sfhassan/myawscli -- /bin/sh -c "sleep 1000"
+oc run awscli --image=quay.io/sfhassan/myawscli --image-pull-policy="Always" -- /bin/sh -c "sleep infinity"
 ```
-If the config and credential files were not passed at the time of container creation, then it will need to be configured before running any command 
+## Usage:
+If you have built the container yourself, and provided it with the config & credentials file, then you can simply use it from command line, as shown here: 
+```
+ oc exec -it awscli -- aws configure list
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile                <not set>             None    None
+access_key     ****************inio shared-credentials-file    
+secret_key     ****************dhat shared-credentials-file    
+    region                us-east-1      config-file    ~/.aws/config
+```
+
+But, if the config and credential files were not passed at the time of container creation, then it will need to be configured before running any command 
 ```
 oc exec -it awscli -- /bin/bash
 [root@awscli /]# aws configure
